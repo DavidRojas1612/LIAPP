@@ -7,9 +7,11 @@ import { ApolloProvider } from '@apollo/react-hooks';
 
 import App from './app';
 import './config/i18n';
+import { init } from './config';
 import './scss/application.scss';
 import { register } from './serviceWorker';
 
+init();
 const client = new ApolloClient({
   uri: 'http://localhost:8080/'
 });
