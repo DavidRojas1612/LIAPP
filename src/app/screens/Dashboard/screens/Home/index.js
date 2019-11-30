@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
+import cn from 'classnames';
 
-import { firebaseStore } from '../../../../../config';
+// import { firebaseStore } from '../../../../../config';
+
+import Card from '~components/Card';
 
 import styles from './styles.module.scss';
 
-const ADD_TODO = gql`
-  mutation lostItem($lostItem: LostItemInput!) {
-    createLostItem(lostItem: $lostItem) {
-      description
-      state
-      userInfoStateLost
-      id
-    }
-  }
-`;
+// const ADD_TODO = gql`
+//   mutation lostItem($lostItem: LostItemInput!) {
+//     createLostItem(lostItem: $lostItem) {
+//       description
+//       state
+//       userInfoStateLost
+//       id
+//     }
+//   }
+// `;
 
 const GET_ITEMS = gql`
   {
@@ -34,37 +37,22 @@ function Home() {
   const { loading, error, data } = useQuery(GET_ITEMS);
   const [file, setFile] = useState('');
 
-  console.log(data);
   return (
     <div className={styles.app}>
-      <div className={styles.navbar}>LIAPP</div>
       {loading && <h3>loading...</h3>}
       {error && <h3>error</h3>}
       {data && (
         <div className={styles.itemsContainer}>
           {data.lostItems.map(item => (
-            <article key={item.id} className={styles.article}>
-              <div className={styles.container}>
-                <div className={styles.imgContainer}>
-                  <img src={item.images[0]} alt="foto item" />
-                </div>
-                <div className={styles.content}>
-                  <a>
-                    <h3 className={styles.title}>
-                      <span>title</span>
-                    </h3>
-                  </a>
-                  <p>descripcion</p>
-                  <div>
-                    <p>state</p>
-                  </div>
-                </div>
-              </div>
-              <footer>
-                <p>report by</p>
-              </footer>
-            </article>
-          ))}{' '}
+            <Card
+              key={item.id}
+              image={item.images[0]}
+              description={item.description}
+              state={item.state}
+              userInfoStateLost={item.userInfoStateLost}
+              userInfoStateDelivered={item.userInfoStateDelivered}
+            />
+          ))}
         </div>
       )}
     </div>

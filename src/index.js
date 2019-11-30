@@ -4,7 +4,9 @@ import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
+import { Provider } from 'react-redux';
 
+import store from './redux/store';
 import App from './app';
 import './config/i18n';
 import { init } from './config';
@@ -20,7 +22,9 @@ const render = () => {
   ReactDOM.render(
     <AppContainer>
       <ApolloProvider client={client}>
-        <App />
+        <Provider store={store}>
+          <App />
+        </Provider>
       </ApolloProvider>
     </AppContainer>,
     document.getElementById('root')

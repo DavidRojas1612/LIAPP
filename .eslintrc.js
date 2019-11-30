@@ -18,7 +18,8 @@ module.exports = {
           '~redux': './src/redux',
           '~services': './src/services',
           '~utils': './src/utils',
-          '~propTypes': './src/propTypes'
+          '~propTypes': './src/propTypes',
+          '~assets': './src/app/assets'
         }
       }
     },
