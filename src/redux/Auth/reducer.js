@@ -1,62 +1,23 @@
-import PropTypes from 'prop-types';
-
-import { deepFreeze } from '../../utils/object';
+import { completeReducer, createReducer, onSpreadValue, completeState, onToggle } from 'redux-recompose';
 
 import { actions } from './actions';
 
-/* ------------- Auth reducer ------------- */
-const defaultState = {
-  currentUser: null,
-  loading: false,
-  initialLoading: true
+const initialState = {
+  user: null,
+  isAuthed: false,
+  token: null
 };
 
-/* eslint-disable complexity */
-// eslint-disable-next-line new-cap
-export function reducer(state = deepFreeze(defaultState), action) {
-  switch (action.type) {
-    case actions.AUTH_INIT: {
-      return deepFreeze({
-        ...state,
-        initialLoading: false,
-        currentUser: action.payload.user
-      });
-    }
-    case actions.LOGIN: {
-      return deepFreeze({ ...state, loading: true });
-    }
-    case actions.LOGIN_SUCCESS: {
-      return deepFreeze({
-        ...state,
-        loading: false,
-        currentUser: action.payload.authData
-      });
-    }
-    case actions.LOGIN_FAILURE: {
-      return deepFreeze({
-        ...state,
-        loading: false,
-        currentUser: null,
-        err: action.payload.err
-      });
-    }
-    case actions.LOGOUT: {
-      return deepFreeze({ ...state, loading: false, currentUser: null });
-    }
-    default: {
-      return state;
-    }
+const state = completeState(initialState, ['user', 'isAuthed']);
+
+const reducerDescription = {
+  primaryActions: [actions.LOGIN],
+  override: {
+    [actions.SET_VALUES]: onSpreadValue(),
+    [actions.IS_AUTHED]: onToggle()
   }
-}
-/* eslint-enable complexity */
-
-/* ------------- Auth propTypes ------------- */
-export const propTypes = {
-  loading: PropTypes.bool.isRequired,
-  initialLoading: PropTypes.bool.isRequired,
-  currentUser: PropTypes.shape({
-    email: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired
-    // TODO: Extend user model definition
-  })
 };
+
+const reducer = createReducer(state, completeReducer(reducerDescription));
+
+export { reducer };

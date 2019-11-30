@@ -1,5 +1,6 @@
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
+import { fetchMiddleware } from 'redux-recompose';
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import { reducer as form } from 'redux-form';
 import thunk from 'redux-thunk';
@@ -19,7 +20,7 @@ const reducers = combineReducers({
   router: connectRouter(history)
 });
 
-const middlewares = [thunk, routerMiddleware(history)];
+const middlewares = [routerMiddleware(history), thunk, fetchMiddleware];
 const enhancers = [];
 
 // TODO Add this if you need it.

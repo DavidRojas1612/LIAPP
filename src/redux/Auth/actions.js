@@ -1,60 +1,51 @@
-import { push } from 'connected-react-router';
+import { completeTypes, createTypes, withPostSuccess, withPostFailure } from 'redux-recompose';
 
-import * as AuthService from '../../services/AuthServices';
-import Routes from '../../constants/routes';
-import { stringArrayToObject } from '../../utils/array';
+import authService from '~services/AuthServices';
 
 /* ------------- Auth actions ------------- */
-export const actions = stringArrayToObject(
-  ['LOGIN', 'LOGIN_SUCCESS', 'LOGIN_FAILURE', 'LOGOUT', 'AUTH_INIT'],
-  '@@AUTH'
-);
+export const actions = createTypes(completeTypes(['LOGIN'], ['SET_VALUES', 'IS_AUTHED']), '@@AUTH');
 
-const privateActionCreators = {
-  loginSuccess(authData) {
-    return {
-      type: actions.LOGIN_SUCCESS,
-      payload: { authData }
-    };
-  },
-  loginFailure(err) {
-    return {
-      type: actions.LOGIN_FAILURE,
-      payload: { err }
-    };
-  }
-};
+const actionCreators = {
+  login: () => async dispatch => {
+    try {
+      const response = await authService.login();
+      if (response) {
+        const { displayName, email, photoURL, refreshToken, uid } = response.user;
 
-export const actionCreators = {
-  init(user) {
-    return {
-      type: actions.AUTH_INIT,
-      payload: { user }
-    };
-  },
-  login(authData) {
-    return async dispatch => {
-      dispatch({ type: actions.LOGIN });
-      try {
-        const response = await AuthService.login(authData);
-
-        if (response.ok) {
-          await AuthService.setCurrentUser(response.data);
-          dispatch(privateActionCreators.loginSuccess(response.data));
-          dispatch(push(Routes.HOME));
-        } else {
-          throw new Error('Invalid credentials');
-        }
-      } catch (e) {
-        dispatch(privateActionCreators.loginFailure(e));
+        dispatch({
+          type: actions.IS_AUTHED,
+          target: 'isAuthed'
+        });
+        dispatch({
+          type: actions.SET_VALUES,
+          target: 'user',
+          payload: { displayName, email, photoURL, refreshToken, uid }
+        });
       }
-    };
-  },
-  logout() {
-    return async dispatch => {
-      await AuthService.removeCurrentUser();
-      dispatch({ type: actions.LOGOUT });
-      dispatch(push(Routes.LOGIN));
-    };
+    } catch (error) {
+      dispatch({
+        type: actions.LOGIN_FAILURE,
+        target: 'user',
+        payload: error
+      });
+    }
   }
+
+  // ,
+  // logOut: () => dispatch => {
+  //   firebase
+  //     .auth()
+  //     .signOut()
+  //     .then(() => {
+  //       dispatch(
+  //         isAuthed({
+  //           authed: false,
+  //           user: null
+  //         })
+  //       );
+  //     })
+  //     .catch(err => console.log('error al cerrar sesión', err));
+  // }
 };
+
+export default actionCreators;

@@ -4,7 +4,7 @@
     "module": "commonjs",
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
-    "baseUrl": "src",
+    "baseUrl": "src/",
     "paths": {
       "~app/*": ["./src/app/*"],
       "~components/*": ["./src/app/components/*"],
@@ -14,7 +14,7 @@
       "~redux/*": ["./src/redux/*"],
       "~services/*": ["./src/services/*"],
       "~utils/*": ["./src/utils/*"],
-      "~assets/*": ["./src/assets/*"]
+      "~assets/*": ["./src/app/assets/*"]
     }
   },
   "include": ["src"],

@@ -17,7 +17,7 @@ function AuthenticatedRoute({
   isPublicRoute,
   isPrivateRoute,
   // initialized,
-  currentUser,
+  isAuthed,
   component: Comp,
   ...props
 }) {
@@ -32,11 +32,11 @@ function AuthenticatedRoute({
          *   return <AppDownloader />;
          * }
          */
-        if (currentUser) {
+        if (isAuthed) {
           if (isPublicRoute) {
             /*
              * TODO Add this if you need it
-             * if (currentUser && isPublicRoute) {
+             * if (isAuthed && isPublicRoute) {
              * do not allow logged users to access public routes. redirect to app
              */
             return (
@@ -71,12 +71,12 @@ AuthenticatedRoute.defaultProps = {
    * TODO Add this if you need it
    * isPublicRoute: true,
    */
-  currentUser: false
+  isAuthed: false
 };
 
 AuthenticatedRoute.propTypes = {
   ...Route.propTypes, // eslint-disable-line react/forbid-foreign-prop-types
-  currentUser: PropTypes.bool,
+  isAuthed: PropTypes.bool,
   isPrivateRoute: PropTypes.bool,
   isPublicRoute: PropTypes.bool
 };

@@ -1,29 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 
-import Login from './layout';
+import Footer from '~components/Footer';
+import authActions from '~redux/Auth/actions';
 
-class LoginContainer extends Component {
-  handleLogin = () => {
-    // TODO implement function
+import styles from './styles.module.scss';
+
+function Login() {
+  const dispatch = useDispatch();
+  const handleLogin = () => {
+    dispatch(authActions.login());
   };
-
-  handleEmailChange = () => {
-    // TODO implement function
-  };
-
-  handlePasswordChange = () => {
-    // TODO implement function
-  };
-
-  render() {
-    return (
-      <Login
-        onEmailChange={this.handleEmailChange}
-        onPasswordChange={this.handlePasswordChange}
-        onLogin={this.handleLogin}
-      />
-    );
-  }
+  return (
+    <div className={styles.loginContainer}>
+      <div className={styles.container}>
+        <button className={styles.button} onClick={handleLogin} type="button">
+          Iniciar sesion con google
+        </button>
+      </div>
+      <Footer />
+    </div>
+  );
 }
 
-export default LoginContainer;
+export default Login;
