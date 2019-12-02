@@ -9,7 +9,8 @@
   display: flex;
   flex-direction: column;
   height: 180px;
-  @include appear-animation;
+
+  @include appear-animation ();
   justify-content: center;
   left: 0;
   position: absolute;
