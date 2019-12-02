@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/liapp-deploy/static/css/main.7463f1b2.chunk.css",
+    "main.js": "/liapp-deploy/static/js/main.e9d22b8d.chunk.js",
+    "main.js.map": "/liapp-deploy/static/js/main.e9d22b8d.chunk.js.map",
+    "runtime-main.js": "/liapp-deploy/static/js/runtime-main.01f68186.js",
+    "runtime-main.js.map": "/liapp-deploy/static/js/runtime-main.01f68186.js.map",
+    "static/js/2.51c300e3.chunk.js": "/liapp-deploy/static/js/2.51c300e3.chunk.js",
+    "static/js/2.51c300e3.chunk.js.map": "/liapp-deploy/static/js/2.51c300e3.chunk.js.map",
+    "index.html": "/liapp-deploy/index.html",
+    "precache-manifest.d192ed2741affbbf910ba9f29d3365a6.js": "/liapp-deploy/precache-manifest.d192ed2741affbbf910ba9f29d3365a6.js",
+    "service-worker.js": "/liapp-deploy/service-worker.js",
+    "static/css/main.7463f1b2.chunk.css.map": "/liapp-deploy/static/css/main.7463f1b2.chunk.css.map",
+    "static/media/filter.c25a009a.svg": "/liapp-deploy/static/media/filter.c25a009a.svg",
+    "static/media/focus.ccd788fd.svg": "/liapp-deploy/static/media/focus.ccd788fd.svg",
+    "static/media/house.e5e58cb9.svg": "/liapp-deploy/static/media/house.e5e58cb9.svg",
+    "static/media/magnifying-glass.d7433a82.svg": "/liapp-deploy/static/media/magnifying-glass.d7433a82.svg",
+    "static/media/user.fcf27fa8.svg": "/liapp-deploy/static/media/user.fcf27fa8.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.01f68186.js",
+    "static/js/2.51c300e3.chunk.js",
+    "static/css/main.7463f1b2.chunk.css",
+    "static/js/main.e9d22b8d.chunk.js"
+  ]
+}
