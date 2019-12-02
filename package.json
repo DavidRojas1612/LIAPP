@@ -36,11 +36,11 @@
   "scripts": {
     "start": "node ./scripts/start.js development",
     "start-env": "node ./scripts/start.js",
-    "build": "react-scripts build && npm run build-sw",
+    "build": "rescripts build && npm run build-sw",
     "clean-cra-sw": "rm -f build/precache-manifest.*.js && rm -f build/service-worker.js",
     "build-sw": "node ./src/sw-build.js",
     "predeploy" : "npm run build",
-    "deploy": "node ./scripts/deploy.js",
+    "deploy": "gh-pages -d build",
     "test": "rescripts test --env=jsdom",
     "eject": "./node_modules/react-scripts/bin/react-scripts.js eject",
     "lint": "./node_modules/eslint/bin/eslint.js 'src/**'",

@@ -1,13 +1,11 @@
 @import '../../../scss/colors';
 
 .article {
-  // border: none;
   border: 1px solid #EEE;
   border-bottom-left-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
-  // box-shadow: 0 2px 4px rgba(0,0,0,0.15);
   display: flex;
   flex-direction: column;
 }
@@ -52,7 +50,6 @@
 .finded,
 .delivered,
 .remitted {
-
   &::before {
     border-radius: 50%;
     content: '';
@@ -63,28 +60,24 @@
 }
 
 .lost {
-
   &::before {
     background-color: $red;
   }
 }
 
 .finded {
-
   &::before {
     background-color: $blue;
   }
 }
 
 .delivered {
-
   &::before {
     background-color: $green;
   }
 }
 
 .remitted {
-
   &::before {
     background-color: #FF7900;
   }

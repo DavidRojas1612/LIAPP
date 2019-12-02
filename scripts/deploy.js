@@ -31,6 +31,6 @@ exec('git rev-parse --abbrev-ref HEAD', (e, stdout, stderr) => {
     }
 
     success(`Build successful, deploying to environment '${env}'`);
-    spawn('gh-pages -d build', ['--env', env], { stdio: 'inherit', shell: true });
+    spawn('aws-deploy', ['--env', env], { stdio: 'inherit', shell: true });
   });
 });
