@@ -42,14 +42,15 @@ function Home() {
   const currentFilter = useSelector(state => state.filter.current);
 
   const { loading, error, data } = useQuery(GET_ITEMS, {
-    variables: { state: currentFilter }
+    variables: { state: currentFilter },
+    fetchPolicy: 'network-only'
   });
 
   return (
     <div className={styles.app}>
       {loading && <h3>loading...</h3>}
       {error && <h3>error</h3>}
-      {data && (
+      {data && !loading && (
         <div className={styles.itemsContainer}>
           {data.lostItems.map(item => (
             <Card
