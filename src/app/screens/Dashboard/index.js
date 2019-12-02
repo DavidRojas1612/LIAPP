@@ -11,9 +11,9 @@ function Dashboard() {
   const isAuthed = useSelector(state => state.auth.isAuthed);
   return (
     <div>
-      <Toolbar />
       <Navbar title="LIAPP" />
       <Routes />
+      <Toolbar />
     </div>
   );
 }

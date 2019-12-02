@@ -9,6 +9,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  max-height: 275px;
 }
 
 .img-container {
@@ -41,7 +42,7 @@
   p {
     -webkit-box-orient: vertical;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     overflow: hidden;
     text-align: left;
   }
@@ -51,7 +52,6 @@
 .finded,
 .delivered,
 .remitted {
-
   &::before {
     border-radius: 50%;
     content: '';
@@ -62,28 +62,24 @@
 }
 
 .lost {
-
   &::before {
     background-color: $red;
   }
 }
 
 .finded {
-
   &::before {
     background-color: $blue;
   }
 }
 
 .delivered {
-
   &::before {
     background-color: $green;
   }
 }
 
 .remitted {
-
   &::before {
     background-color: #FF7900;
   }
