@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, NavLink, Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 import styles from './styles.module.scss';
 import { TOOLBAR_ICONS } from './constants';

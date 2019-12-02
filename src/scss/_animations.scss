@@ -1,0 +1,19 @@
+$transition-duration: 250ms;
+$transition-function: cubic-bezier(0.17, 0.71, 0.44, 1);
+
+@mixin appear-animation($ani-name: appear, $fill-mode: both, $transform-x: 0) {
+  animation: $ani-name $transition-duration $transition-function;
+  animation-fill-mode: $fill-mode;
+
+
+  @keyframes #{$ani-name} {
+    from {
+      opacity: 0;
+      transform: translate($transform-x,180px);
+    }
+    to {
+      opacity: 1;
+      transform: translate($transform-x,0);
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import { apiSetup } from '../config/api';
 import store from '../redux/store';
@@ -12,7 +13,11 @@ function App() {
     apiSetup(store.dispatch);
   }, []);
 
-  return <Routes />;
+  return (
+    <Router>
+      <Routes />
+    </Router>
+  );
 }
 
 App.defaultProps = {

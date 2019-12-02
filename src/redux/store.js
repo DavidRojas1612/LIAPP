@@ -10,12 +10,14 @@ import thunk from 'redux-thunk';
  * import AnalyticsMiddleware from '../services/AnalyticsService';
  */
 import { reducer as auth } from './Auth/reducer';
+import { reducer as filter } from './Filter/reducer';
 
 export const history = createBrowserHistory();
 
 // Add reducers here
 const reducers = combineReducers({
   auth,
+  filter,
   form,
   router: connectRouter(history)
 });

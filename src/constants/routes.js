@@ -1,18 +1,18 @@
-import Search from '~screens/Dashboard/screens/Search';
-import Home from '~screens/Dashboard/screens/Home';
-import Profile from '~screens/Dashboard/screens/Profile';
-import NewPost from '~screens/Dashboard/screens/NewPost';
+import Search from '../app/screens/Dashboard/screens/Search';
+import Home from '../app/screens/Dashboard/screens/Home';
+import Profile from '../app/screens/Dashboard/screens/Profile';
+import NewPost from '../app/screens/Dashboard/screens/NewPost';
 
 export const ROOT_ROUTES = {
-  HOME: '/',
-  LOGIN: '/login',
+  HOME: '/home',
+  LOGIN: '/',
   RECOVER_PASSWORD: '/forgot_password'
 };
 
 export const APP_ROUTES = {
   HOME: {
     component: Home,
-    path: '/'
+    path: '/home'
   },
   SEARCH: {
     component: Search,
@@ -22,7 +22,7 @@ export const APP_ROUTES = {
     component: NewPost,
     path: '/new-post'
   },
-  FILTER: {
+  PROFILE: {
     component: Profile,
     path: '/profile'
   }

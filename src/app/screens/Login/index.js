@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import Footer from '~components/Footer';
-import authActions from '~redux/Auth/actions';
+import Footer from '../../components/Footer';
+import authActions from '../../../redux/Auth/actions';
 
 import styles from './styles.module.scss';
 

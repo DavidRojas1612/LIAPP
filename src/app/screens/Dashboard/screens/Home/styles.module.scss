@@ -46,11 +46,15 @@
 
 .items-container {
   display: grid;
-  /* max-width: var(--max-width); */
   grid-row-gap: 2rem;
   grid-template-columns: 100%;
+  height: calc(100vh - 130px);
   margin-left: 1rem;
   margin-right: 1rem;
-  /* grid-column-gap: var(--gap); */
+  overflow-y: auto;
   width: calc(100% - 2rem);
+
+  & article:last-child {
+    margin-bottom: 20px;
+  }
 }

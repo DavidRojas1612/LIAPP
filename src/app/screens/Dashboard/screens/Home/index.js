@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import React from 'react';
+import { useQuery } from '@apollo/react-hooks';
+import { useSelector } from 'react-redux';
 import gql from 'graphql-tag';
-import cn from 'classnames';
 
 // import { firebaseStore } from '../../../../../config';
 
-import Card from '~components/Card';
+import Card from '../../../../components/Card';
+import Portal from '../../../../components/Portal';
+import Filter from '../../../../components/Filter';
 
 import styles from './styles.module.scss';
 
@@ -21,8 +23,8 @@ import styles from './styles.module.scss';
 // `;
 
 const GET_ITEMS = gql`
-  {
-    lostItems {
+  query items($state: String) {
+    lostItems(state: $state) {
       description
       state
       userInfoStateLost
@@ -34,8 +36,14 @@ const GET_ITEMS = gql`
 `;
 
 function Home() {
-  const { loading, error, data } = useQuery(GET_ITEMS);
-  const [file, setFile] = useState('');
+  // const [file, setFile] = useState('');
+  // const dispatch = useDispatch();
+  const filterIsOpen = useSelector(state => state.filter.isOpen);
+  const currentFilter = useSelector(state => state.filter.current);
+
+  const { loading, error, data } = useQuery(GET_ITEMS, {
+    variables: { state: currentFilter }
+  });
 
   return (
     <div className={styles.app}>
@@ -54,6 +62,11 @@ function Home() {
             />
           ))}
         </div>
+      )}
+      {filterIsOpen && (
+        <Portal>
+          <Filter />
+        </Portal>
       )}
     </div>
   );

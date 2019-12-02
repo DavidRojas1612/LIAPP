@@ -1,6 +1,6 @@
-import { completeTypes, createTypes, withPostSuccess, withPostFailure } from 'redux-recompose';
+import { completeTypes, createTypes } from 'redux-recompose';
 
-import authService from '~services/AuthServices';
+import authService from '../../services/AuthServices';
 
 /* ------------- Auth actions ------------- */
 export const actions = createTypes(completeTypes(['LOGIN'], ['SET_VALUES', 'IS_AUTHED']), '@@AUTH');

@@ -1,7 +1,7 @@
-import { ReactComponent as User } from '~assets/user.svg';
-import { ReactComponent as House } from '~assets/house.svg';
-import { ReactComponent as Focus } from '~assets/focus.svg';
-import { ReactComponent as Search } from '~assets/magnifying-glass.svg';
+import { ReactComponent as User } from '../../assets/user.svg';
+import { ReactComponent as House } from '../../assets/house.svg';
+import { ReactComponent as Focus } from '../../assets/focus.svg';
+import { ReactComponent as Search } from '../../assets/magnifying-glass.svg';
 
 export const TOOLBAR_ICONS = {
   home: {
@@ -16,7 +16,7 @@ export const TOOLBAR_ICONS = {
     icon: Focus,
     path: '/new-post'
   },
-  filter: {
+  profile: {
     icon: User,
     path: '/profile'
   }
