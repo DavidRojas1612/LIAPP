@@ -34,7 +34,6 @@
 }
 
 @keyframes app-logo-spin {
-
   from {
     transform: rotate(0deg);
   }
@@ -49,7 +48,6 @@
   display: grid;
   grid-row-gap: 2rem;
   grid-template-columns: 100%;
-  height: calc(100vh - 130px);
   margin-left: 1rem;
   margin-right: 1rem;
   overflow-y: auto;
