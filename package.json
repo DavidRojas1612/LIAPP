@@ -1,7 +1,6 @@
 {
   "name": "liapp",
   "version": "1.0.0",
-  "homepage": "https://davidrojas1612.github.io/LIAPP/",
   "private": true,
   "dependencies": {
     "@apollo/react-hooks": "^3.1.3",
