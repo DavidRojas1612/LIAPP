@@ -50,6 +50,7 @@
 .finded,
 .delivered,
 .remitted {
+
   &::before {
     border-radius: 50%;
     content: '';
@@ -60,24 +61,28 @@
 }
 
 .lost {
+
   &::before {
     background-color: $red;
   }
 }
 
 .finded {
+
   &::before {
     background-color: $blue;
   }
 }
 
 .delivered {
+
   &::before {
     background-color: $green;
   }
 }
 
 .remitted {
+
   &::before {
     background-color: #FF7900;
   }
