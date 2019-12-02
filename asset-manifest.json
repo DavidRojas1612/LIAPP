@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/LIAPP/static/css/main.7463f1b2.chunk.css",
-    "main.js": "/LIAPP/static/js/main.cd0e7cca.chunk.js",
-    "main.js.map": "/LIAPP/static/js/main.cd0e7cca.chunk.js.map",
+    "main.js": "/LIAPP/static/js/main.986fc0a1.chunk.js",
+    "main.js.map": "/LIAPP/static/js/main.986fc0a1.chunk.js.map",
     "runtime-main.js": "/LIAPP/static/js/runtime-main.ea60d297.js",
     "runtime-main.js.map": "/LIAPP/static/js/runtime-main.ea60d297.js.map",
     "static/js/2.be9bf815.chunk.js": "/LIAPP/static/js/2.be9bf815.chunk.js",
     "static/js/2.be9bf815.chunk.js.map": "/LIAPP/static/js/2.be9bf815.chunk.js.map",
     "index.html": "/LIAPP/index.html",
-    "precache-manifest.f28c6100511b2dd5d911ccc4251bdc90.js": "/LIAPP/precache-manifest.f28c6100511b2dd5d911ccc4251bdc90.js",
+    "precache-manifest.6792bb84f47a71728cf2962f418f574d.js": "/LIAPP/precache-manifest.6792bb84f47a71728cf2962f418f574d.js",
     "service-worker.js": "/LIAPP/service-worker.js",
     "static/css/main.7463f1b2.chunk.css.map": "/LIAPP/static/css/main.7463f1b2.chunk.css.map",
     "static/media/filter.c25a009a.svg": "/LIAPP/static/media/filter.c25a009a.svg",
@@ -21,6 +21,6 @@
     "static/js/runtime-main.ea60d297.js",
     "static/js/2.be9bf815.chunk.js",
     "static/css/main.7463f1b2.chunk.css",
-    "static/js/main.cd0e7cca.chunk.js"
+    "static/js/main.986fc0a1.chunk.js"
   ]
 }
