@@ -47,11 +47,11 @@ function Home() {
   });
 
   return (
-    <div className={styles.app}>
+    <div className={styles.itemsContainer}>
       {loading && <h3>loading...</h3>}
       {error && <h3>error</h3>}
       {data && !loading && (
-        <div className={styles.itemsContainer}>
+        <>
           {data.lostItems.map(item => (
             <Card
               key={item.id}
@@ -62,7 +62,7 @@ function Home() {
               userInfoStateDelivered={item.userInfoStateDelivered}
             />
           ))}
-        </div>
+        </>
       )}
       {filterIsOpen && (
         <Portal>

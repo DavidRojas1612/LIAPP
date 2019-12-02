@@ -1,29 +1,73 @@
+@import '../../../scss/colors';
+@import '../../../scss/animations';
 .container {
   align-items: center;
   background-color: #F9F9F9;
   border-top: 1px solid #E0E1E1;
   bottom: 0;
   display: flex;
+  height: 60px;
   justify-content: center;
   left: 0;
   margin-top: 1rem;
-  padding: 0.8rem 1rem;
   position: fixed;
   right: 0;
   z-index: 10;
 }
 
 .item-container {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
   width: calc(100% / 4);
-
   .link {
     align-items: center;
+    cursor: initial;
     display: flex;
     justify-content: center;
+    -webkit-tap-highlight-color: transparent;
     width: 100%;
   }
 }
 
+.link-active {
+  .icon {
+    fill: $green-poli;
+  }
+}
+
+
+.link:active {
+  background-color: transparent;
+}
+
 .icon {
   height: 30px;
+}
+
+.ripple {
+  @include ripple-effect;
+  position: relative;
+  &:before {
+    background-color: currentColor;
+    border-radius: 50%;
+    content: '';
+    height: 0;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    visibility: hidden;
+    width: 0;
+    z-index: 2;
+  }
+
+  &:not(:active):before {
+    animation: ripple 0.4s cubic-bezier(0, 0, 0.2, 1);
+    transition: visibility 0.4s step-end;
+  }
+
+  &:active:before {
+    visibility: visible;
+  }
 }

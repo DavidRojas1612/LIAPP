@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import styles from './styles.module.scss';
 import { TOOLBAR_ICONS } from './constants';
@@ -9,9 +9,13 @@ function Toolbar() {
     <div className={styles.container}>
       {Object.values(TOOLBAR_ICONS).map(({ path, icon: Component }) => (
         <div key={path} className={styles.itemContainer}>
-          <Link to={path} className={styles.link}>
+          <NavLink
+            to={path}
+            className={`${styles.link}   ${styles.ripple}`}
+            activeClassName={styles.linkActive}
+          >
             <Component className={styles.icon} />
-          </Link>
+          </NavLink>
         </div>
       ))}
     </div>

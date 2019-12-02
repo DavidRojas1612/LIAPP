@@ -14,7 +14,7 @@ function AppRoutes() {
   return (
     <Switch>
       <PublicRoute authed exact path="/" component={Login} />
-      <PrivateRoute authed exact component={Home} />
+      <PrivateRoute authed component={Home} />
     </Switch>
   );
 }

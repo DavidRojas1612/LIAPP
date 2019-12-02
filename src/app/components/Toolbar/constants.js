@@ -6,7 +6,7 @@ import { ReactComponent as Search } from '../../assets/magnifying-glass.svg';
 export const TOOLBAR_ICONS = {
   home: {
     icon: House,
-    path: '/'
+    path: '/home'
   },
   search: {
     icon: Search,
