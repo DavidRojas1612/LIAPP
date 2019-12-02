@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "47d7bad1e5a4df65295cedddebe8fe2f",
+    "revision": "98d72966cfa591ceedc6712697ffb384",
     "url": "/LIAPP/index.html"
   },
   {
-    "revision": "ebf11162e150bfaf7fc2",
-    "url": "/LIAPP/static/css/main.7463f1b2.chunk.css"
+    "revision": "915de6aecdc821c150c6",
+    "url": "/LIAPP/static/css/main.e0bcf27d.chunk.css"
   },
   {
     "revision": "69373ee0bc4592cd42a1",
     "url": "/LIAPP/static/js/2.be9bf815.chunk.js"
   },
   {
-    "revision": "ebf11162e150bfaf7fc2",
-    "url": "/LIAPP/static/js/main.986fc0a1.chunk.js"
+    "revision": "915de6aecdc821c150c6",
+    "url": "/LIAPP/static/js/main.c1d83490.chunk.js"
   },
   {
     "revision": "30b9e5254564e0c59823",
