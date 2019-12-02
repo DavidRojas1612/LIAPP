@@ -36,7 +36,7 @@
   "scripts": {
     "start": "node ./scripts/start.js development",
     "start-env": "node ./scripts/start.js",
-    "build": "rescripts build && npm run build-sw",
+    "build": "react-scripts build && npm run build-sw",
     "clean-cra-sw": "rm -f build/precache-manifest.*.js && rm -f build/service-worker.js",
     "build-sw": "node ./src/sw-build.js",
     "predeploy" : "npm run build",
