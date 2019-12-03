@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { useMutation } from '@apollo/react-hooks';
 import { useDispatch } from 'react-redux';
-import { push } from 'connected-react-router';
+import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
 import { firebaseStore } from '../../../../../config';
-import filterActions from '../../../../../redux/Filter/actions';
 import { GET_POSTS } from '../Home';
+import filterActions from '../../../../../redux/Filter/actions';
 
 import NewPostForm from './components/NewPostForm';
 import styles from './styles.module.scss';
@@ -27,18 +26,15 @@ function NewPost({ history }) {
   const [imagePreview, setImagePreview] = useState('');
   const dispatch = useDispatch();
 
-  const handleComplete = () => {
-    history.push('/home');
-    // dispatch(filterActions.setCurrentFilter('finded'));
-  };
-
-  const [addTodo, { loading: mutationLoading, client }] = useMutation(ADD_TODO, {
-    onCompleted: handleComplete,
-    refetchQueries: [{ query: GET_POSTS, variables: { state: 'finded' } }],
+  const [addTodo, { loading: mutationLoading }] = useMutation(ADD_TODO, {
+    onCompleted: () => history.push('/home'),
+    refetchQueries: postResult => {
+      const { state } = postResult.data.createLostItem;
+      dispatch(filterActions.setCurrentFilter(state));
+      return [{ query: GET_POSTS, variables: { state } }];
+    },
     awaitRefetchQueries: true
   });
-
-  console.log('client', client);
 
   const handleChange = e => {
     const fileR = e[0];
