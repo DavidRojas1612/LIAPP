@@ -64,7 +64,7 @@
 
   &:not(:active):before {
     animation: ripple 250ms cubic-bezier(0, 0, 0.2, 1);
-    transition: visibility 0.4s ease-out step-end;
+    transition: visibility 0.4s step-end;
   }
 
   &:active:before {
