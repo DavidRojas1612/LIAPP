@@ -1,4 +1,4 @@
-import { completeReducer, createReducer, onSpreadValue, completeState, onToggle } from 'redux-recompose';
+import { completeReducer, createReducer, onSpreadValue, completeState, onReadValue } from 'redux-recompose';
 
 import { actions } from './actions';
 
@@ -14,7 +14,7 @@ const reducerDescription = {
   primaryActions: [actions.LOGIN],
   override: {
     [actions.SET_VALUES]: onSpreadValue(),
-    [actions.IS_AUTHED]: onToggle()
+    [actions.IS_AUTHED]: onReadValue()
   }
 };
 

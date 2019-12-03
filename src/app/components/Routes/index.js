@@ -13,8 +13,8 @@ function AppRoutes() {
 
   return (
     <Switch>
-      <PublicRoute authed exact path="/" component={Login} />
-      <PrivateRoute authed component={Home} />
+      <PublicRoute authed={isAuthed} exact path="/" component={Login} />
+      <PrivateRoute authed={isAuthed} component={Home} />
     </Switch>
   );
 }

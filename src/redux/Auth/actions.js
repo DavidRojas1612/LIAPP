@@ -14,8 +14,10 @@ const actionCreators = {
 
         dispatch({
           type: actions.IS_AUTHED,
-          target: 'isAuthed'
+          target: 'isAuthed',
+          payload: true
         });
+
         dispatch({
           type: actions.SET_VALUES,
           target: 'user',
@@ -29,7 +31,17 @@ const actionCreators = {
         payload: error
       });
     }
-  }
+  },
+  setCurrentUser: user => ({
+    type: actions.SET_VALUES,
+    target: 'user',
+    payload: user
+  }),
+  setStateSession: session => ({
+    type: actions.IS_AUTHED,
+    target: 'isAuthed',
+    payload: session
+  })
 
   // ,
   // logOut: () => dispatch => {
