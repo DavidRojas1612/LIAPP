@@ -3,24 +3,11 @@ import { useQuery } from '@apollo/react-hooks';
 import { useSelector } from 'react-redux';
 import gql from 'graphql-tag';
 
-// import { firebaseStore } from '../../../../../config';
-
 import Card from '../../../../components/Card';
 import Portal from '../../../../components/Portal';
 import Filter from '../../../../components/Filter';
 
 import styles from './styles.module.scss';
-
-// const ADD_TODO = gql`
-//   mutation lostItem($lostItem: LostItemInput!) {
-//     createLostItem(lostItem: $lostItem) {
-//       description
-//       state
-//       userInfoStateLost
-//       id
-//     }
-//   }
-// `;
 
 const GET_ITEMS = gql`
   query items($state: String) {
@@ -36,8 +23,6 @@ const GET_ITEMS = gql`
 `;
 
 function Home() {
-  // const [file, setFile] = useState('');
-  // const dispatch = useDispatch();
   const filterIsOpen = useSelector(state => state.filter.isOpen);
   const currentFilter = useSelector(state => state.filter.current);
 
@@ -74,35 +59,3 @@ function Home() {
 }
 
 export default Home;
-
-// const handleSend = async () => {
-//   const storageRef = firebaseStore().ref();
-//   try {
-//     const uploadImage = await storageRef.child(`images/${file.name}`).put(file);
-//     const imgUrl = await uploadImage.ref.getDownloadURL();
-//     addTodo({
-//       variables: {
-//         lostItem: {
-//           description: 'Reloj Rolex encontrado en el baño de damas',
-//           state: 'finded',
-//           userInfoStateLost: 'fabio_montoya82142@elpoli.edu.co',
-//           userInfoStateDelivered: null,
-//           images: [imgUrl]
-//         }
-//       }
-//     });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
-// const handleChange = e => {
-//   const fileR = e[0];
-//   setFile(fileR);
-// };
-
-// <input type="file" accept="image/*" onChange={e => handleChange(e.target.files)} />
-// {/* <button type="button" onClick={handleSend}> */}
-// {' '}
-// Enviar puto
-// </button>

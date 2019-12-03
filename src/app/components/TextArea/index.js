@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
-function TextArea({ className, onChange, onBlur, onFocus, value }) {
-  return (
-    <textarea className={className} onChange={onChange} onBlur={onBlur} onFocus={onFocus} value={value} />
-  );
+function TextArea({ input, id, theme }) {
+  return <textarea {...input} id={id} className={cn(theme)} />;
 }
 
 TextArea.propTypes = {
