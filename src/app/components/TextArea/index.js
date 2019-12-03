@@ -7,10 +7,10 @@ function TextArea({ input, id, theme }) {
 }
 
 TextArea.propTypes = {
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
   className: PropTypes.string,
+  value: PropTypes.string,
   onBlur: PropTypes.func,
+  onChange: PropTypes.func,
   onFocus: PropTypes.func
 };
 

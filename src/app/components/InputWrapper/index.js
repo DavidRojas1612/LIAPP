@@ -15,7 +15,6 @@ function InputWrapper({
   ...props
 }) {
   const FieldComponent = FIELDS[typeField];
-  console.log('active', active);
   return (
     <div
       className={cn(styles.container, styles.border, customStyles, {

@@ -7,4 +7,9 @@
   background-color: #2684FF;
   bottom: -160px;
   position: absolute;
+
+  &:disabled {
+    background-color: rgb(69, 137, 224);
+    box-shadow: none;
+  }
 }
