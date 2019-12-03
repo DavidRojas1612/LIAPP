@@ -19,7 +19,7 @@ class Filter extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('wheel', this.handleOutsideClick);
+    window.removeEventListener('mousedown', this.handleOutsideClick);
   }
 
   handleOutsideClick = event => {

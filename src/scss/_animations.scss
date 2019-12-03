@@ -20,6 +20,25 @@ $transition-function: cubic-bezier(0.17, 0.71, 0.44, 1);
 }
 
 
+@mixin scale-animation ($ani-name: scale, $fill-mode: both) {
+  animation: $ani-name 150ms ease-in-out;
+  animation-fill-mode: $fill-mode;
+
+
+  @keyframes #{$ani-name} {
+    from {
+      opacity: 0;
+      transform: scale(1.1) translate(-50%, -50%);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1) translate(-50%, -50%);
+    }
+  }
+}
+
+
 @mixin ripple-effect {
   @keyframes ripple {
     0% {

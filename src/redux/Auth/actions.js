@@ -3,7 +3,10 @@ import { completeTypes, createTypes } from 'redux-recompose';
 import authService from '../../services/AuthServices';
 
 /* ------------- Auth actions ------------- */
-export const actions = createTypes(completeTypes(['LOGIN'], ['SET_VALUES', 'IS_AUTHED']), '@@AUTH');
+export const actions = createTypes(
+  completeTypes(['LOGIN'], ['SET_VALUES', 'IS_AUTHED', 'SIGN_OUT']),
+  '@@AUTH'
+);
 
 const actionCreators = {
   login: () => async dispatch => {
@@ -41,23 +44,15 @@ const actionCreators = {
     type: actions.IS_AUTHED,
     target: 'isAuthed',
     payload: session
-  })
-
-  // ,
-  // logOut: () => dispatch => {
-  //   firebase
-  //     .auth()
-  //     .signOut()
-  //     .then(() => {
-  //       dispatch(
-  //         isAuthed({
-  //           authed: false,
-  //           user: null
-  //         })
-  //       );
-  //     })
-  //     .catch(err => console.log('error al cerrar sesión', err));
-  // }
+  }),
+  logOut: () => async dispatch => {
+    try {
+      dispatch({ type: actions.SIGN_OUT });
+      await authService.logout();
+    } catch (error) {
+      console.log('error al cerrar sesión', error);
+    }
+  }
 };
 
 export default actionCreators;

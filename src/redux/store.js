@@ -9,6 +9,8 @@ import thunk from 'redux-thunk';
  * TODO Add this if you need it
  * import AnalyticsMiddleware from '../services/AnalyticsService';
  */
+
+import { actions as authActions } from './Auth/actions';
 import { reducer as auth } from './Auth/reducer';
 import { reducer as filter } from './Filter/reducer';
 
@@ -35,14 +37,13 @@ enhancers.push(applyMiddleware(...middlewares));
 // eslint-disable-next-line no-underscore-dangle
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const rootReducer = (state, action) =>
-  /*
-   * TODO Add this if you need it
-   * if (action.type === authActions.SIGN_OUT) {
-   *   return reducers(getGlobalState(state), action);
-   * }
-   */
-  reducers(state, action);
+const rootReducer = (state, action) => {
+  let newState = state;
+  if (action.type === authActions.SIGN_OUT) {
+    newState = undefined;
+  }
+  return reducers(newState, action);
+};
 
 const store = createStore(rootReducer, composeEnhancers(...enhancers));
 
