@@ -9,8 +9,8 @@ import Filter from '../../../../components/Filter';
 
 import styles from './styles.module.scss';
 
-const GET_ITEMS = gql`
-  query items($state: String) {
+export const GET_POSTS = gql`
+  query getPosts($state: String) {
     lostItems(state: $state) {
       description
       state
@@ -26,9 +26,8 @@ function Home() {
   const filterIsOpen = useSelector(state => state.filter.isOpen);
   const currentFilter = useSelector(state => state.filter.current);
 
-  const { loading, error, data } = useQuery(GET_ITEMS, {
-    variables: { state: currentFilter },
-    fetchPolicy: 'network-only'
+  const { loading, error, data } = useQuery(GET_POSTS, {
+    variables: { state: currentFilter }
   });
 
   return (

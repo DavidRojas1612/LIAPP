@@ -6,6 +6,7 @@ import gql from 'graphql-tag';
 
 import { firebaseStore } from '../../../../../config';
 import filterActions from '../../../../../redux/Filter/actions';
+import { GET_POSTS } from '../Home';
 
 import NewPostForm from './components/NewPostForm';
 import styles from './styles.module.scss';
@@ -21,19 +22,23 @@ const ADD_TODO = gql`
   }
 `;
 
-function NewPost() {
+function NewPost({ history }) {
   const [file, setFile] = useState('');
   const [imagePreview, setImagePreview] = useState('');
   const dispatch = useDispatch();
 
   const handleComplete = () => {
-    dispatch(filterActions.setCurrentFilter('finded'));
-    dispatch(push({ pathname: '/home', search: '' }));
+    history.push('/home');
+    // dispatch(filterActions.setCurrentFilter('finded'));
   };
 
-  const [addTodo, { loading: mutationLoading, error: mutationError }] = useMutation(ADD_TODO, {
-    onCompleted: handleComplete
+  const [addTodo, { loading: mutationLoading, client }] = useMutation(ADD_TODO, {
+    onCompleted: handleComplete,
+    refetchQueries: [{ query: GET_POSTS, variables: { state: 'finded' } }],
+    awaitRefetchQueries: true
   });
+
+  console.log('client', client);
 
   const handleChange = e => {
     const fileR = e[0];
