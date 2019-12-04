@@ -26,7 +26,7 @@ function NewPost({ history }) {
   const [imagePreview, setImagePreview] = useState('');
   const dispatch = useDispatch();
 
-  const [addTodo, { loading: mutationLoading }] = useMutation(ADD_TODO, {
+  const [addTodo, { loading: mutationLoading, error: mutationError }] = useMutation(ADD_TODO, {
     onCompleted: () => history.push('/home'),
     refetchQueries: postResult => {
       const { state } = postResult.data.createLostItem;
@@ -65,6 +65,7 @@ function NewPost({ history }) {
         });
       } catch (error) {
         console.log(error);
+        alert(error);
       }
     }
   };
@@ -88,6 +89,7 @@ function NewPost({ history }) {
           onChange={e => handleChange(e.target.files)}
         />
       </div>
+      {mutationError && <h1>{mutationError}</h1>}
     </div>
   );
 }
