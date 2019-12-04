@@ -30,7 +30,7 @@ function Card({ image, description, userInfoStateLost, userInfoStateDelivered, i
         </div>
         <div className={styles.infoContainer}>
           {expand && <h2 className={styles.titleExpand}>Reclamado:</h2>}
-          {userInfoStateDelivered && <h6>{userInfoStateDelivered.replace(/@[^@]+$/, '')}</h6>}
+          {userInfoStateDelivered ? <h6>{userInfoStateDelivered.replace(/@[^@]+$/, '')}</h6> : <h6>None</h6>}
         </div>
         {expand || <StatePost state={state} />}
       </footer>

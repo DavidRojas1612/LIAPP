@@ -10,6 +10,7 @@
   overflow: hidden;
   position: fixed;
   transition: left  250ms, width 250ms, bottom 350ms, top 350ms;
+  will-change: left, top, bottom;
 }
 
 .case-study {
