@@ -91,6 +91,7 @@ function NewPost({ history }) {
           onChange={e => handleChange(e.target.files)}
         />
       </div>
+      {mutationError && <h1>mutationError</h1>}
     </>
   );
 }
