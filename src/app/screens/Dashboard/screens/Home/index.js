@@ -52,7 +52,6 @@ function Home({ history }) {
       }
       observer.current = new IntersectionObserver(entries => {
         if (entries[0].isIntersecting && hasMore) {
-          console.log('amaa');
           fetchMore({
             variables: {
               offset: data ? data.lostItems.length : 0
