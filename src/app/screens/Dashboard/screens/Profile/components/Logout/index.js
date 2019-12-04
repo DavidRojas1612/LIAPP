@@ -19,7 +19,7 @@ function Logout({ wrappRef, cancelLogout }) {
       <h2 className={styles.title}>¿ Salir de Liapp ?</h2>
       <div className={styles.buttonsContainer}>
         <Button className={styles.exit} onClick={handleExitButton}>
-          Saliir
+          Salir
         </Button>
         <Button className={styles.cancel} onClick={handleCancelButton}>
           Cancelar

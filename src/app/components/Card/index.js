@@ -1,33 +1,38 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { string } from 'prop-types';
 import cn from 'classnames';
 
 import styles from './styles.module.scss';
+import StatePost from './components/StatePost';
 
-function Card({ image, description, userInfoStateLost, userInfoStateDelivered, state }) {
+function Card({ image, description, userInfoStateLost, userInfoStateDelivered, id, state, onClick, expand }) {
+  const cardRef = useRef();
+
   return (
-    <article className={styles.article}>
-      <div className={styles.container}>
-        <div className={styles.imgContainer}>
-          <img src={image} alt="foto item" />
-        </div>
-        <div className={styles.content}>
-          <p>{description}</p>
-        </div>
+    <article
+      className={cn(styles.article, { [styles.expand]: expand })}
+      ref={cardRef}
+      onClick={onClick && (() => onClick(id, cardRef))}
+    >
+      <div className={styles.imgContainer}>
+        <img src={image} alt="foto item" />
       </div>
+      {expand && <StatePost state={state} expand />}
+      <div className={styles.content}>
+        {expand && <h1>Descripcion:</h1>}
+        <p>{description}</p>
+      </div>
+
       <footer className={styles.footerItem}>
-        <div>
+        <div className={styles.infoContainer}>
+          {expand && <h2 className={styles.titleExpand}>Reportado:</h2>}
           {userInfoStateLost && <h6>{userInfoStateLost.replace(/@[^@]+$/, '')}</h6>}
+        </div>
+        <div className={styles.infoContainer}>
+          {expand && <h2 className={styles.titleExpand}>Reclamado:</h2>}
           {userInfoStateDelivered && <h6>{userInfoStateDelivered.replace(/@[^@]+$/, '')}</h6>}
         </div>
-        <span
-          className={cn({
-            [styles.finded]: state === 'finded',
-            [styles.lost]: state === 'lost',
-            [styles.delivered]: state === 'delivered',
-            [styles.remitted]: state === 'remitted'
-          })}
-        />
+        {expand || <StatePost state={state} />}
       </footer>
     </article>
   );

@@ -1,0 +1,59 @@
+@import '../../../../../scss/colors';
+
+
+.container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.expand {
+  display: flex;
+  margin-top: 10px;
+  padding: 0.5rem;
+  position: relative;
+  transform: translateX(-50%);
+
+  &::before {
+    background-color: #0282F9;
+    position: absolute;
+    right: -20px;
+  }
+}
+
+.lost,
+.finded,
+.delivered,
+.remitted {
+  &::before {
+    border-radius: 50%;
+    content: '';
+    display: block;
+    height: 15px;
+    width: 15px;
+  }
+}
+
+.lost {
+  &::before {
+    background-color: $red;
+  }
+}
+
+.finded {
+  &::before {
+    background-color: $blue;
+  }
+}
+
+.delivered {
+  &::before {
+    background-color: $green;
+  }
+}
+
+.remitted {
+  &::before {
+    background-color: #FF7900;
+  }
+}
