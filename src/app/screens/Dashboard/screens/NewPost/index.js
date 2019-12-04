@@ -23,6 +23,7 @@ const ADD_TODO = gql`
 
 function NewPost({ history }) {
   const [file, setFile] = useState('');
+  const [loading, setLoading] = useState(false);
   const [imagePreview, setImagePreview] = useState('');
   const dispatch = useDispatch();
 
@@ -50,6 +51,7 @@ function NewPost({ history }) {
     const storageRef = firebaseStore().ref();
     if (post.state) {
       try {
+        setLoading(true);
         const uploadImage = await storageRef.child(`images/${file.name}`).put(file);
         const imgUrl = await uploadImage.ref.getDownloadURL();
         addTodo({
@@ -75,7 +77,7 @@ function NewPost({ history }) {
       <div className={styles.containerPreview}>
         {imagePreview && <img src={imagePreview} className={styles.imagePreview} alt="preview image" />}
       </div>
-      <NewPostForm onSubmit={handleSubmit} isLoading={mutationLoading} />
+      <NewPostForm onSubmit={handleSubmit} isLoading={loading || mutationLoading} />
       <div className={styles.uploadContainer}>
         <label htmlFor="file" className={styles.uploadLabel}>
           Subir Imagen{' '}
