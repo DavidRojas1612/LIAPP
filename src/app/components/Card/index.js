@@ -27,8 +27,7 @@ function Card({
       onClick={onClick && (() => onClick(id, cardRef))}
     >
       <div className={styles.imgContainer}>
-        {/* <img src={image} alt="foto item" /> */}
-        <LazyImage src={image} alt="postImage" />
+        <img src={image} alt="foto item" />
       </div>
       {expand && <StatePost state={state} expand />}
       <div className={styles.content}>
