@@ -68,6 +68,7 @@
   .img-container {
     padding-bottom: 100%;
     transition: padding-bottom 0.3s;
+    will-change: contents;
     img {
       border-top-left-radius: 0rem;
       border-top-right-radius: 0rem;
