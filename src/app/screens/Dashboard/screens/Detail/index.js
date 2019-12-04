@@ -19,13 +19,20 @@ export const GET_POSTS = gql`
     }
   }
 `;
-function DetailPost({ location, history, match }) {
+function DetailPost({
+  location,
+  history,
+  match: {
+    params: { id }
+  }
+}) {
   const [expand, setExpand] = useState(false);
   const containerRef = useRef();
   const boxRef = useRef();
+
   const { loading, error, data } = useQuery(GET_POSTS, {
-    variables: { id: match.params.id },
-    fetchPolicy: 'cache-and-network'
+    variables: { id },
+    fetchPolicy: 'cache-first'
   });
 
   useEffect(() => {
@@ -49,7 +56,7 @@ function DetailPost({ location, history, match }) {
 
   return (
     <div className={styles.container} ref={containerRef}>
-      {loading && <h1>Loading...</h1>}
+      {/* {loading && <h1>Loading...</h1>} */}
       {error && <h2>Error, {error}</h2>}
       {location.state.initStyles && data && (
         <div className={cn(styles.animated, styles.box)} ref={boxRef}>

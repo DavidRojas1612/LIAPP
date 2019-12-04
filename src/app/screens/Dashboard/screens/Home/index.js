@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useCallback, useEffect, useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { useSelector } from 'react-redux';
 import gql from 'graphql-tag';
@@ -10,8 +10,8 @@ import Filter from '../../../../components/Filter';
 import styles from './styles.module.scss';
 
 export const GET_POSTS = gql`
-  query getPosts($state: String) {
-    lostItems(state: $state) {
+  query getPosts($state: String, $offset: Int, $limit: Int) {
+    lostItems(state: $state, limit: $limit, offset: $offset) {
       description
       state
       userInfoStateLost
@@ -23,17 +23,59 @@ export const GET_POSTS = gql`
 `;
 
 function Home({ history }) {
+  const [hasMore, setHasmore] = useState(true);
   const filterIsOpen = useSelector(state => state.filter.isOpen);
   const currentFilter = useSelector(state => state.filter.current);
 
-  const { loading, error, data } = useQuery(GET_POSTS, {
-    variables: { state: currentFilter }
+  const { loading, error, data, fetchMore } = useQuery(GET_POSTS, {
+    variables: {
+      state: currentFilter,
+      offset: 0,
+      limit: 5
+    }
   });
+
+  useEffect(() => {
+    if (data && data.lostItems.length === 0) {
+      setHasmore(false);
+    }
+  }, [data]);
+
+  const observer = useRef();
+  const lastBookElementRef = useCallback(
+    node => {
+      if (loading) {
+        return;
+      }
+      if (observer.current) {
+        observer.current.disconnect();
+      }
+      observer.current = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting && hasMore) {
+          console.log('amaa');
+          fetchMore({
+            variables: {
+              offset: data ? data.lostItems.length : 0
+            },
+            updateQuery: (prev, { fetchMoreResult }) => {
+              if (!fetchMoreResult) {
+                return prev;
+              }
+              return { lostItems: [...prev.lostItems, ...fetchMoreResult.lostItems] };
+            }
+          });
+        }
+      });
+      if (node) {
+        observer.current.observe(node);
+      }
+    },
+    [loading, fetchMore, data, hasMore]
+  );
 
   const handleCardClick = (id, cardRef) => {
     const bounds = cardRef.current.getBoundingClientRect();
     const width = cardRef.current.offsetWidth;
-    const height = cardRef.current.offsetHeight;
 
     const detailInitialPosition = {
       top: bounds.top,
@@ -50,8 +92,6 @@ function Home({ history }) {
     };
 
     history.push(`/detail/${id}`, { initStyles });
-
-    console.log('height', height);
   };
 
   return (
@@ -60,18 +100,35 @@ function Home({ history }) {
       {error && <h3>error</h3>}
       {data && !loading && (
         <>
-          {data.lostItems.map(item => (
-            <Card
-              key={item.id}
-              id={item.id}
-              image={item.images[0]}
-              description={item.description}
-              state={item.state}
-              userInfoStateLost={item.userInfoStateLost}
-              userInfoStateDelivered={item.userInfoStateDelivered}
-              onClick={handleCardClick}
-            />
-          ))}
+          {data.lostItems.map((item, index) => {
+            if (data.lostItems.length === index + 1) {
+              return (
+                <div ref={lastBookElementRef} key={item.id}>
+                  <Card
+                    id={item.id}
+                    image={item.images[0]}
+                    description={item.description}
+                    state={item.state}
+                    userInfoStateLost={item.userInfoStateLost}
+                    userInfoStateDelivered={item.userInfoStateDelivered}
+                    onClick={handleCardClick}
+                  />
+                </div>
+              );
+            }
+            return (
+              <Card
+                key={item.id}
+                id={item.id}
+                image={item.images[0]}
+                description={item.description}
+                state={item.state}
+                userInfoStateLost={item.userInfoStateLost}
+                userInfoStateDelivered={item.userInfoStateDelivered}
+                onClick={handleCardClick}
+              />
+            );
+          })}
         </>
       )}
       {filterIsOpen && (

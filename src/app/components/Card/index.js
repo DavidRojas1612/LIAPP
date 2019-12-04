@@ -1,11 +1,22 @@
 import React, { useRef } from 'react';
 import { string } from 'prop-types';
 import cn from 'classnames';
+import { LazyLoadImage, trackWindowScroll } from 'react-lazy-load-image-component';
 
 import styles from './styles.module.scss';
 import StatePost from './components/StatePost';
 
-function Card({ image, description, userInfoStateLost, userInfoStateDelivered, id, state, onClick, expand }) {
+function Card({
+  image,
+  description,
+  userInfoStateLost,
+  userInfoStateDelivered,
+  id,
+  state,
+  onClick,
+  expand,
+  scrollPosition
+}) {
   const cardRef = useRef();
 
   return (
@@ -15,7 +26,7 @@ function Card({ image, description, userInfoStateLost, userInfoStateDelivered, i
       onClick={onClick && (() => onClick(id, cardRef))}
     >
       <div className={styles.imgContainer}>
-        <img src={image} alt="foto item" />
+        <LazyLoadImage alt="Foto item" scrollPosition={scrollPosition} src={image} />
       </div>
       {expand && <StatePost state={state} expand />}
       <div className={styles.content}>
@@ -46,4 +57,4 @@ Card.propTypes = {
   userInfoStateLost: string
 };
 
-export default Card;
+export default trackWindowScroll(Card);

@@ -15,8 +15,9 @@ import { register } from './serviceWorker';
 
 init();
 const client = new ApolloClient({
-  // uri: 'http://localhost:8080/'
-  uri: 'https://liapsito-back.herokuapp.com/'
+  uri: 'http://localhost:8080/'
+  // uri: 'https://liapsito-back.herokuapp.com/'
+  // uri: 'https://liapp-back.herokuapp.com/'
 });
 
 const render = () => {
