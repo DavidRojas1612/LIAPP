@@ -1,6 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { func, string } from 'prop-types';
+import Spinner from 'react-spinkit';
 
 import Button from '../../../../../../components/Button';
 import InputWrapper from '../../../../../../components/InputWrapper';
@@ -16,7 +17,8 @@ const VALIDATIONS = {
 
 const OPTIONS = [{ label: 'Encontrado', value: 'finded' }, { label: 'Perdido', value: 'lost' }];
 
-function NewPostForm({ handleSubmit, error, disabled, invalid, ...props }) {
+function NewPostForm({ handleSubmit, error, isLoading, invalid, ...props }) {
+  console.log(isLoading, 'isLoading');
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <Field
@@ -36,9 +38,16 @@ function NewPostForm({ handleSubmit, error, disabled, invalid, ...props }) {
       />
 
       <ErrorMessage error={error} />
-      <Button type="submit" className={styles.button} disabled={disabled || invalid}>
-        Publicar
-      </Button>
+
+      <div className={styles.buttonContainer}>
+        {isLoading ? (
+          <Spinner name="three-bounce" color="#2684FF" />
+        ) : (
+          <Button type="submit" className={styles.button} disabled={invalid}>
+            Publicar
+          </Button>
+        )}
+      </div>
     </form>
   );
 }

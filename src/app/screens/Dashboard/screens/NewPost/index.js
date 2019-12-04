@@ -71,11 +71,11 @@ function NewPost({ history }) {
   };
 
   return (
-    <div>
+    <>
       <div className={styles.containerPreview}>
         {imagePreview && <img src={imagePreview} className={styles.imagePreview} alt="preview image" />}
       </div>
-      <NewPostForm onSubmit={handleSubmit} disabled={mutationLoading} />
+      <NewPostForm onSubmit={handleSubmit} isLoading={mutationLoading} />
       <div className={styles.uploadContainer}>
         <label htmlFor="file" className={styles.uploadLabel}>
           Subir Imagen{' '}
@@ -89,8 +89,7 @@ function NewPost({ history }) {
           onChange={e => handleChange(e.target.files)}
         />
       </div>
-      {mutationError && <h1>{mutationError}</h1>}
-    </div>
+    </>
   );
 }
 
