@@ -10,8 +10,8 @@ import Filter from '../../../../components/Filter';
 import styles from './styles.module.scss';
 
 export const GET_POSTS = gql`
-  query getPosts($state: String, $offset: Int, $limit: Int) {
-    lostItems(state: $state, limit: $limit, offset: $offset) {
+  query getPosts($state: String, $offset: Int, $limit: Int, $id: ID) {
+    lostItems(state: $state, limit: $limit, offset: $offset, id: $id) {
       description
       state
       userInfoStateLost
