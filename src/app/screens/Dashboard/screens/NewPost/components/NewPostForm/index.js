@@ -18,7 +18,6 @@ const VALIDATIONS = {
 const OPTIONS = [{ label: 'Encontrado', value: 'finded' }, { label: 'Perdido', value: 'lost' }];
 
 function NewPostForm({ handleSubmit, error, isLoading, invalid, ...props }) {
-  console.log(isLoading, 'isLoading');
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <Field

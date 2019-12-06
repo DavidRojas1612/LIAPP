@@ -69,6 +69,17 @@
     padding-bottom: 100%;
     transition: padding-bottom 0.3s;
     will-change: contents;
+
+    &::before {
+      background: #DDD;
+      content: '';
+      display: block;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
     img {
       border-top-left-radius: 0rem;
       border-top-right-radius: 0rem;
