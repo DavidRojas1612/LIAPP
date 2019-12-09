@@ -1,9 +1,11 @@
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
 import { string } from 'prop-types';
+import { useSelector } from 'react-redux';
 import cn from 'classnames';
 
-import LazyImage from '../LazyImage';
+import Switch from '../Switch';
 
+import { validateState } from './utilis';
 import styles from './styles.module.scss';
 import StatePost from './components/StatePost';
 
@@ -13,12 +15,15 @@ function Card({
   userInfoStateLost,
   userInfoStateDelivered,
   id,
-  state,
+  state: stateCard,
   onClick,
   expand,
-  scrollPosition
+  nextStep,
+  onChangeState
 }) {
   const cardRef = useRef();
+  const user = useSelector(state => state.auth.email);
+  const validatedState = useMemo(() => validateState(user, userInfoStateLost), [user, userInfoStateLost]);
 
   return (
     <article
@@ -29,7 +34,14 @@ function Card({
       <div className={styles.imgContainer}>
         <img src={image} alt="foto item" />
       </div>
-      {expand && <StatePost state={state} expand />}
+
+      {expand && (
+        <div className={cn(styles.stateContainer, { 'row end': !validatedState[stateCard] })}>
+          <StatePost state={stateCard} expand />
+          {validatedState[stateCard] && <Switch onClick={onChangeState} message={nextStep} />}
+        </div>
+      )}
+
       <div className={styles.content}>
         {expand && <h1>Descripcion:</h1>}
         <p>{description}</p>
@@ -40,11 +52,13 @@ function Card({
           {expand && <h2 className={styles.titleExpand}>Reportado:</h2>}
           {userInfoStateLost && <h6>{userInfoStateLost.replace(/@[^@]+$/, '')}</h6>}
         </div>
-        <div className={styles.infoContainer}>
-          {expand && <h2 className={styles.titleExpand}>Reclamado:</h2>}
-          {userInfoStateDelivered ? <h6>{userInfoStateDelivered.replace(/@[^@]+$/, '')}</h6> : <h6>None</h6>}
-        </div>
-        {expand || <StatePost state={state} />}
+        {expand && userInfoStateDelivered && (
+          <div className={styles.infoContainer}>
+            <h2 className={styles.titleExpand}>Reclamado:</h2>
+            <h6>{userInfoStateDelivered.replace(/@[^@]+$/, '')}</h6>
+          </div>
+        )}
+        {expand || <StatePost state={stateCard} />}
       </footer>
     </article>
   );

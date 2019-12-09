@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
@@ -24,6 +24,7 @@ const ADD_TODO = gql`
 function NewPost({ history }) {
   const [file, setFile] = useState('');
   const [loading, setLoading] = useState(false);
+  const { email } = useSelector(state => state.auth);
   const [imagePreview, setImagePreview] = useState('');
   const dispatch = useDispatch();
 
@@ -59,15 +60,14 @@ function NewPost({ history }) {
             lostItem: {
               description: post.description,
               state: post.state,
-              userInfoStateLost: post.state === 'finded' ? 'fabio_montoya82142@elpoli.edu.co' : null,
-              userInfoStateDelivered: post.state === 'delivered' ? 'fabio_montoya82142@elpoli.edu.co' : null,
+              userInfoStateLost: post.state === 'finded' ? email : null,
+              userInfoStateDelivered: post.state === 'delivered' ? email : null,
               images: [imgUrl]
             }
           }
         });
       } catch (error) {
         console.log(error);
-        alert(error);
       }
     }
   };

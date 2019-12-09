@@ -1,15 +1,18 @@
 import React, { useMemo, useState, useCallback, useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Button from '../../../../components/Button';
 import Portal from '../../../../components/Portal';
+import authActions from '../../../../../redux/Auth/actions';
+import DialogModal from '../../../../components/DialogModal';
 
 import styles from './styles.module.scss';
 import { formatterName } from './utils';
-import Logout from './components/Logout';
 
 function Profile() {
   const [logout, setLogout] = useState(false);
+  const dispatch = useDispatch();
+
   const { displayName, email, photoURL } = useSelector(state => state.auth);
   const nameUser = useMemo(() => formatterName(displayName), [displayName]);
   const childrenRef = useRef();
@@ -21,6 +24,10 @@ function Profile() {
       setLogout(false);
     }
   };
+
+  const handleExitButton = useCallback(() => {
+    dispatch(authActions.logOut());
+  }, [dispatch]);
 
   useEffect(() => {
     window.addEventListener('mousedown', handleOutsideClick);
@@ -40,7 +47,13 @@ function Profile() {
 
       {logout && (
         <Portal>
-          <Logout wrappRef={childrenRef} cancelLogout={setLogout} />
+          <DialogModal
+            wrappRef={childrenRef}
+            handleAcceptButton={handleExitButton}
+            closeModal={setLogout}
+            title="¿ Salir de Liapp ?"
+            isLogOut
+          />
         </Portal>
       )}
     </div>

@@ -1,24 +1,14 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
-import { useApolloClient, useQuery } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useSelector } from 'react-redux';
 import cn from 'classnames';
-import gql from 'graphql-tag';
 
 import Card from '../../../../components/Card';
+import Portal from '../../../../components/Portal';
+import DialogModal from '../../../../components/DialogModal';
 
 import styles from './styles.module.scss';
-
-const GET_POST = gql`
-  query getPost($id: ID) {
-    lostItems(id: $id) {
-      description
-      state
-      userInfoStateLost
-      userInfoStateDelivered
-      images
-      id
-    }
-  }
-`;
+import { GET_POST, NEXT_STATE, UPDATE_STATE } from './constants';
 
 function DetailPost({
   location,
@@ -27,20 +17,46 @@ function DetailPost({
     params: { id }
   }
 }) {
-  const client = useApolloClient();
   const [expand, setExpand] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const containerRef = useRef();
   const boxRef = useRef();
+  const modalRef = useRef();
 
-  // const { data, loading } = useQuery(GET_POST, {
-  //   variables: { id }
-  // });
+  const user = useSelector(state => state.auth.email);
 
-  // console.log(data);
-  const dataItem = useMemo(() => client.cache.data.data[`LostItem:${id}`], [id, client.cache]);
-  // const data = client.cache.data.data[`LostItem:${id}`];
+  const { data, loading } = useQuery(GET_POST, {
+    variables: { id }
+  });
 
-  // const dataItem = useMemo(() => (data ? data.lostItems[0] : null), [data]);
+  const dataItem = useMemo(() => (data ? data.lostItems[0] : {}), [data]);
+
+  const [updateItem, { loading: mutationLoading, error }] = useMutation(UPDATE_STATE, {
+    refetchQueries: () => [{ query: GET_POST, variables: { id } }],
+    awaitRefetchQueries: true,
+    onCompleted: () => setShowModal(false)
+  });
+
+  const handleSubmit = () => {
+    const nextStepUpdate = NEXT_STATE[dataItem.state].nextState;
+    updateItem({
+      variables: {
+        id,
+        state: nextStepUpdate,
+        ...(nextStepUpdate === 'delivered' && { userInfoStateDelivered: user })
+      }
+    });
+  };
+
+  const handleShowModal = () => {
+    setShowModal(true);
+  };
+
+  const handleOutsideClick = event => {
+    if (modalRef.current && !modalRef.current.contains(event.target)) {
+      setShowModal(false);
+    }
+  };
 
   useEffect(() => {
     Object.entries(location.state.initStyles).forEach(style => {
@@ -59,22 +75,41 @@ function DetailPost({
     return () => {
       clearTimeout(time);
     };
-  }, [dataItem]);
+  }, [data]);
+
+  useEffect(() => {
+    window.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+      window.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, []);
 
   return (
     <div className={styles.container} ref={containerRef}>
-      {location.state.initStyles && dataItem && (
+      {location.state.initStyles && data && (
         <div className={cn(styles.animated, styles.box)} ref={boxRef}>
           <Card
             id={dataItem.id}
-            image={dataItem.images.json[0]}
+            image={dataItem.images[0]}
             description={dataItem.description}
             state={dataItem.state}
             userInfoStateLost={dataItem.userInfoStateLost}
             userInfoStateDelivered={dataItem.userInfoStateDelivered}
             expand={expand}
+            nextStep={NEXT_STATE[dataItem.state] ? NEXT_STATE[dataItem.state].text : ''}
+            onChangeState={handleShowModal}
           />
         </div>
+      )}
+      {showModal && (
+        <Portal>
+          <DialogModal
+            wrappRef={modalRef}
+            handleAcceptButton={handleSubmit}
+            closeModal={setShowModal}
+            title="¿ Deseas cambiar el estado a este objeto ?"
+          />
+        </Portal>
       )}
     </div>
   );
