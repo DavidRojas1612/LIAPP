@@ -27,7 +27,7 @@ function DetailPost({
 
   const { data, loading } = useQuery(GET_POST, {
     variables: { id },
-    fetchPolicy: 'network-only'
+    fetchPolicy: 'cache-first'
   });
 
   const dataItem = useMemo(() => (data ? data.lostItems[0] : {}), [data]);
