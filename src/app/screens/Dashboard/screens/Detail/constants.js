@@ -29,10 +29,11 @@ export const GET_POST = gql`
 `;
 
 export const UPDATE_STATE = gql`
-  mutation updateItem($id: ID!, $state: String!) {
-    updateLostItem(id: $id, state: $state) {
+  mutation updateItem($id: ID!, $state: String!, $userInfoStateDelivered: String) {
+    updateLostItem(id: $id, state: $state, userInfoStateDelivered: $userInfoStateDelivered) {
       state
       userInfoStateLost
+      userInfoStateDelivered
     }
   }
 `;

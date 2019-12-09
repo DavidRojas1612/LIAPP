@@ -26,7 +26,8 @@ function DetailPost({
   const user = useSelector(state => state.auth.email);
 
   const { data, loading } = useQuery(GET_POST, {
-    variables: { id }
+    variables: { id },
+    fetchPolicy: 'network-only'
   });
 
   const dataItem = useMemo(() => (data ? data.lostItems[0] : {}), [data]);
@@ -39,12 +40,14 @@ function DetailPost({
 
   const handleSubmit = () => {
     const nextStepUpdate = NEXT_STATE[dataItem.state].nextState;
+    const variables = {
+      id,
+      state: nextStepUpdate,
+      ...(nextStepUpdate === 'delivered' && { userInfoStateDelivered: user })
+    };
+
     updateItem({
-      variables: {
-        id,
-        state: nextStepUpdate,
-        ...(nextStepUpdate === 'delivered' && { userInfoStateDelivered: user })
-      }
+      variables
     });
   };
 
